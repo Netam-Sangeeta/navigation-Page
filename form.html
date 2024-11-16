@@ -1,0 +1,111 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Details Form</title>
+    <!-- css -->
+    <style>
+        h2 {
+            font-size: 1.5em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Fill in your Personal and Education Details</h2>
+     
+    <form onsubmit="handleSubmit(event)">
+        <fieldset>
+            <legend>Personal Details</legend>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" required><br><br>
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" required><br><br>
+            <label for="dob">DOB</label>
+            <input type="date" id="dob" required><br><br>
+            <label for="email">Email</label>
+            <input type="email" id="email" required><br><br>
+            <label for="phone">Phone</label>
+            <input type="number" id="phone" required><br><br>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Education Details</legend>
+            <label for="">Department</label><br><br>
+            <input type="radio" id="cs" name="dept" required>
+            <label for="cs">CS</label>
+            <input type="radio" id="ec" name="dept" required>
+            <label for="ec">EC</label>
+            <input type="radio" id="civil" name="dept" required>
+            <label for="civil">Civil</label>
+            <input type="radio" id="mech" name="dept" required>
+            <label for="mech">Mech</label><br><br>
+
+            <label for="">Year of graduation</label>
+            <input list="yog">
+            <datalist id="yog">
+                <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+            </datalist><br><br>
+
+            <label for="">Skills</label>
+            <input type="checkbox" id="sql">
+            <label for="sql">Sql</label>
+            <input type="checkbox" id="html">
+            <label for="html">Html</label>
+            <input type="checkbox" id="java">
+            <label for="java">Java</label>
+            <input type="checkbox" id="python">
+            <label for="python">Python</label><br><br>
+        </fieldset>
+
+        <input type="submit" value="Submit">
+    </form>    
+
+    <!-- JavaScript function to handle form submission -->
+    <script>        
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Gather form data
+            const fname = document.getElementById('fname').value.trim();
+            const lname = document.getElementById('lname').value.trim();
+            const dob = document.getElementById('dob').value;
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const department = document.querySelector('input[name="dept"]:checked');
+            const yearOfGraduation = document.querySelector('input[list="yog"]').value.trim();
+            const skills = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(skill => skill.nextElementSibling.textContent.trim());
+            
+            // Validation
+            if (!fname || !lname || !dob || !email || !phone || !department || !yearOfGraduation) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            // Form Data
+            const formData = {
+                firstName: fname,
+                lastName: lname,
+                dateOfBirth: dob,
+                email: email,
+                phone: phone,
+                department: department.nextElementSibling.textContent,
+                yearOfGraduation: yearOfGraduation,
+                skills: skills,
+            };
+
+            // Save form data in sessionStorage
+            sessionStorage.setItem('formData', JSON.stringify(formData));
+
+            // Redirect to next page
+            window.location.href = "nextpage.html";
+        }
+    </script>
+</body>
+</html> 

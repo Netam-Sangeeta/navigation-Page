@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Page</title>
+</head>
+<body>
+     <!-- Form details will be displayed here -->
+    <h1>Thank you for submitting the form!</h1>
+    <div id="details">       
+    </div>
+
+        <!-- // JavaScript to display form data on console -->
+        <script>        
+            window.onload = function () {
+                const formData = JSON.parse(sessionStorage.getItem('formData'));
+    
+                if (formData) {
+                    console.log('Form Data:', formData);
+                    const detailsContainer = document.getElementById('details');
+                    detailsContainer.innerHTML =
+                    `
+                        <p><strong>First Name:</strong> ${formData.firstName}</p>
+                        <p><strong>Last Name:</strong> ${formData.lastName}</p>
+                        <p><strong>Date of Birth:</strong> ${formData.dateOfBirth}</p>
+                        <p><strong>Email:</strong> ${formData.email}</p>
+                        <p><strong>Phone:</strong> ${formData.phone}</p>
+                        <p><strong>Department:</strong> ${formData.department}</p>
+                        <p><strong>Year of Graduation:</strong> ${formData.yearOfGraduation}</p>
+                        <p><strong>Skills:</strong> ${formData.skills.join(', ')}</p>
+                    `;
+                } else {
+                    console.log('No form data found.');
+                }
+            };
+        </script>
+</body>
+</html>
